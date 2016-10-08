@@ -1,5 +1,5 @@
 .idea/
 node_modules/
 build/
-models/db_config.json
-my_config.js
+models/DBConfig.json
+config.js
