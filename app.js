@@ -29,16 +29,16 @@ const errors = require('./errors');
 app.use((err, req, res, next) => {
   let status, e;
 
-  if(typeof err == 'number'){
-    if(err == 9401){
+  if (typeof err == 'number') {
+    if (err == 9401) {
       log.error("[ERROR param] [" + req.path + "] param ===>\n", req.body);
     }
     e = errors[err];  // Error 메세지 호출
     status = e.status;
-  }else if(err){
+  } else if(err) {
     e = errors[500];
     status = e.status;
-    log.error("[ERROR Handler][" + req.path + "] Error code or message ===>", err);
+    log.error("[ERROR Handler][" + req.path + "] Error code or message ===>\n", err);
   }
 
   return res.status(status).json({
