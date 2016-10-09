@@ -1,12 +1,13 @@
 'use strict';
 
-const AuthCtrl = require('../controllers/AuthCtrl');
-const UserCtrl = require('../controllers/UserCtrl');
+const controller = require('../controllers');
+const AuthCtrl = controller.AuthCtrl;
+const UserCtrl = controller.UserCtrl;
 
-exports.serviceRouter = (app) => {
-  // User
-  app.route('/api/user/register')
+module.exports = (router) => {
+  router.route('/user/register')
     .post(UserCtrl.register);
-  app.route('/api/user/login')
+  router.route('/user/login')
     .post(UserCtrl.login);
-};
+  return router;
+}
