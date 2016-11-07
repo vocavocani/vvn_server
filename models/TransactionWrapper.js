@@ -4,23 +4,42 @@ exports.getConnection = (pool) => {
   return new Promise((resolve, reject) => {
 
     pool.getConnection((err, conn) => {
+      let context = {
+        conn: conn
+      };
       if (err) {
-        return reject(err);
+        context.error = err;
+        return reject(context);
       } else {
-        return resolve(conn);
+        return resolve(context);
       }
     });
   });
 };
 
-exports.beginTransaction = (conn) => {
+exports.beginTransaction = (context) => {
   return new Promise((resolve, reject) => {
 
-    conn.beginTransaction((err) => {
+    context.conn.beginTransaction((err) => {
       if (err) {
-        return reject(err);
+        context.error = err;
+        return reject(context);
       } else{
-        return resolve(conn);
+        return resolve(context);
+      }
+    });
+  });
+};
+
+exports.commitTransaction = (context) => {
+  return new Promise((resolve, reject) => {
+
+    context.conn.commit((err) => {
+      if (err) {
+        context.error = err;
+        return reject(context);
+      } else{
+        return resolve(context);
       }
     });
   });

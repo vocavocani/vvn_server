@@ -16,6 +16,7 @@ module.exports = {
   },
   9401: {
     "status": 400,
+    "code": 0,
     "message": "파라미터가 잘못되었습니다.",
     "description": "invalid parameter"
   },
@@ -36,7 +37,20 @@ module.exports = {
   // User Error Code
   1201: {
     "status": 200,  // Exception
+    "code": 0,
     "message": "아이디가 중복됩니다.",
     "description": "Exist Email"
+  },
+  1202: {
+    "status": 200,  // Exception
+    "code": 0,
+    "message": "아이디가 존재하지 않습니다.",
+    "description": "Not SignIn VocaVocaNi"
+  },
+  1203: {
+    "status": 200,  // Exception
+    "code": 0,
+    "message": "비밀번호가 틀렸습니다.",
+    "description": "Passwords no not match"
   }
 };
