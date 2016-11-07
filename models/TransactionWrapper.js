@@ -4,7 +4,7 @@ exports.getConnection = (pool) => {
   return new Promise((resolve, reject) => {
 
     pool.getConnection((err, conn) => {
-      let context = {
+      const context = {
         conn: conn
       };
       if (err) {
