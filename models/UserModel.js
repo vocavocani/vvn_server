@@ -66,7 +66,7 @@ exports.login = (user_data, done) => {
           return reject(err);
         } else {
           if (rows.length == 0) {  // 아이디 없음
-            return reject(1402);
+            return reject(1202);
           } else {
             return resolve(null);
           }
@@ -85,7 +85,7 @@ exports.login = (user_data, done) => {
             return reject(err);
           } else {
             if (rows.length == 0) {  // 비밀번호 틀림
-              return reject(1403);
+              return reject(1203);
             } else {
               const profile = {
                 id: rows[0].user_id,
