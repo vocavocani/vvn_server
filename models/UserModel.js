@@ -11,7 +11,7 @@ const config = require('../config');
  *  Register
  *  @param: user_data = {user_id, user_password, user_nickname}
  ********************/
-exports.register = (user_data, done)=> {
+exports.register = (user_data, done) => {
   new Promise((resolve, reject) => {
       const sql = "SELECT user_id FROM user WHERE user_id = ?";
 

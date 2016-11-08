@@ -27,3 +27,34 @@ exports.create = (req, res, next) => {
     });
   }
 };
+
+/*******************
+ *  Apply
+ ********************/
+exports.apply = async (req, res, next) => {
+  if (!req.params.team_idx) {  // parameter check
+    return next(9401);
+  } else {
+    // TEAM Checking
+    try {
+      await teamModel.check(req.params.team_idx);
+    } catch(error) {
+      return next(error);
+    }
+
+    // TEAM apply
+    const apply_data = {
+      team_idx: req.params.team_idx,
+      user_idx: req.user_idx,
+      team_member_apply_msg: req.body.message
+    };
+
+    teamModel.apply(apply_data, (err, result) => {
+      if (err) {
+        return next(err);
+      } else {
+        return res.json(result);
+      }
+    });
+  }
+};
