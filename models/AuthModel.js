@@ -5,6 +5,7 @@ const DBConfig = require('./DBConfig');
 const pool = mysql.createPool(DBConfig);
 
 const jwt = require('jsonwebtoken');
+const logger = require('winston');
 const config = require('../config');
 
 /*******************
@@ -14,7 +15,11 @@ const config = require('../config');
 exports.auth = (token, done) => {
   jwt.verify(token, config.jwt.cert, (err, decoded) => {
     if (err) {
-      return done(err);
+      switch (err.message) {
+        case 'jwt expired': return done(10401);
+        case 'invalid token': return done(10403);
+        default: return done(err.message);
+      }
     } else {
       const sql = "SELECT user_idx FROM user WHERE user_id = ?";
 
