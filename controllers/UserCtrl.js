@@ -6,7 +6,7 @@ const config = require('../config');
 /*******************
  *  Register
  ********************/
-exports.register = (req, res, next) => {
+exports.register = async (req, res, next) => {
   const regType = /^[A-Za-z0-9+]*$/;  // only en, num
   if (!req.body.id || !req.body.nickname || !req.body.pw_1 || !req.body.pw_2) {  // parameter check
     return next(9401);
@@ -17,38 +17,45 @@ exports.register = (req, res, next) => {
     return next(400);
   }
 
-  const user_data = {
-    user_id: req.body.id,
-    user_password: config.do_ciper(req.body.pw_2),
-    user_nickname: req.body.nickname
-  };
+  let result = '';
+  try {
+    const user_data = {
+      user_id: req.body.id,
+      user_password: config.do_ciper(req.body.pw_2),
+      user_nickname: req.body.nickname
+    };
 
-  userModel.register(user_data, (err) => {
-    if (err) {
-      return next(err);
-    }
-    return res.json();
-  });
+    result = await userModel.register(user_data);
+
+  } catch (error) {
+    return next(error);
+  }
+
+  // success
+  return res.json(result);
 };
 
 /*******************
  *  Login
  ********************/
-exports.login = (req, res, next) => {
+exports.login = async (req, res, next) => {
   if (!req.body.id || !req.body.pw) {  // parameter check
     return next(9401);
   } else {
-    const user_data = {
-      user_id: req.body.id,
-      user_password: config.do_ciper(req.body.pw)
-    };
+    let result = '';
 
-    userModel.login(user_data, (err, token) =>{
-      if (err) {
-        return next(err);
-      } else {
-        return res.header('token', token).json();
-      }
-    });
+    try {
+      const user_data = {
+        user_id: req.body.id,
+        user_password: config.do_ciper(req.body.pw)
+      };
+
+      result = await userModel.login(user_data);
+    } catch (error) {
+      return next(error);
+    }
+
+    // success
+    return res.header('token', result.token).json(result.profile);
   }
 };
