@@ -14,11 +14,25 @@ module.exports = {
     "message": "로그인에 실패하였습니다.",
     "description": "Login Fail"
   },
+  // Team 4XX Error Code
+  1401: {
+    "status": 400,
+    "code": 0,
+    "message": "이미 승인 절차가 진행된 유저입니다.",
+    "description": "Already confirm user"
+  },
+  // Public 4XX Error Code
   9401: {
     "status": 400,
     "code": 0,
     "message": "파라미터가 잘못되었습니다.",
     "description": "invalid parameter"
+  },
+  9402: {
+    "status": 403,
+    "code": 0,
+    "message": "권한이 없습니다.",
+    "description": "Do not have permission"
   },
 
   /**
