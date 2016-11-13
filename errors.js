@@ -34,6 +34,18 @@ module.exports = {
     "message": "권한이 없습니다.",
     "description": "Do not have permission"
   },
+  10401: {
+    "status": 401,
+    "code": 0,
+    "message": "만료된 인증 토큰 입니다.",
+    "description": "expired token"
+  },
+  10403: {
+    "status": 403,
+    "code": 0,
+    "message": "잘못된 인증 방식입니다.",
+    "description": "invalid authentication"
+  },
 
   /**
    * 5XX ERROR
