@@ -6,10 +6,33 @@ const pool = mysql.createPool(DBConfig);
 const transactionWrapper = require('./TransactionWrapper');
 
 /*******************
+ *  Check
+ *  @param: team_idx
+ ********************/
+exports.check = (team_idx) => {
+  return new Promise((resolve, reject) => {
+    const sql = "SELECT team_idx FROM team WHERE team_idx = ?";
+
+    pool.query(sql, team_idx, (err, rows) => {
+      if (err) {
+        return reject(err);
+      } else {
+        if (rows.length == 0) {
+          const _err = new Error("Not found this team");
+          return reject(_err);
+        } else {
+          return resolve(null);
+        }
+      }
+    });
+  });
+};
+
+/*******************
  *  Create
  *  @param: team_data = {user_idx, team_name, team_rule, team_category, team_max_cap, team_public}
  ********************/
-exports.create = (team_data, done)=> {
+exports.create = (team_data, done) => {
   new Promise((resolve, reject) => {
     transactionWrapper.getConnection(pool)
       .then(transactionWrapper.beginTransaction)
@@ -79,4 +102,46 @@ exports.create = (team_data, done)=> {
         });
       });
   });
+};
+
+/*******************
+ *  Apply
+ *  @param: apply_idx = {team_idx, user_idx, team_member_apply_msg}
+ ********************/
+exports.apply = (apply_data, done) => {
+  new Promise((resolve, reject) => {
+      const sql = "INSERT INTO team_member SET ?";
+
+      pool.query(sql, apply_data, (err, rows) => {
+        if (err) {
+          return reject(err);
+        } else {
+          if (rows.affectedRows == 1) {
+            return resolve(rows);
+          } else {
+            const _err = new Error("Team Apply Custom error");
+            return reject(_err);
+          }
+        }
+      });
+    }
+  ).then((result) => {
+      return new Promise((resolve, reject) => {
+        const sql = "SELECT * FROM team_member WHERE team_member_idx = ?";
+
+        pool.query(sql, result.insertId, (err, rows) => {
+          if (err) {
+            return reject(err);
+          } else {
+            return resolve(rows);
+          }
+        });
+      });
+    })
+    .then((result) => {
+      return done(null, result);
+    })
+    .catch((err) => {
+      return done(err);
+    });
 };

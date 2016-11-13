@@ -15,5 +15,7 @@ module.exports = (router) => {
   // TEAM
   router.route('/team')
     .post(AuthCtrl.auth, TeamCtrl.create);
+  router.route('/team/:team_idx/apply')
+    .post(AuthCtrl.auth, TeamCtrl.apply);
   return router;
 };
