@@ -12,11 +12,15 @@ module.exports = (router) => {
   router.route('/user/login')
     .post(UserCtrl.login);
 
+
   // TEAM
   router.route('/team')
     .post(AuthCtrl.auth, TeamCtrl.create);
   router.route('/team/:team_idx/apply')
     .post(AuthCtrl.auth, TeamCtrl.apply)
     .put(AuthCtrl.auth, TeamCtrl.confirm);
+  
+
+
   return router;
 };
