@@ -4,6 +4,7 @@ const controller = require('../controllers');
 const AuthCtrl = controller.AuthCtrl;
 const UserCtrl = controller.UserCtrl;
 const TeamCtrl = controller.TeamCtrl;
+const TestCtrl = controller.TestCtrl;
 
 module.exports = (router) => {
   // USER
@@ -18,5 +19,10 @@ module.exports = (router) => {
   router.route('/team/:team_idx/apply')
     .post(AuthCtrl.auth, TeamCtrl.apply)
     .put(AuthCtrl.auth, TeamCtrl.confirm);
+
+  // TEST
+  router.route('/:team_idx/test')
+    .post(AuthCtrl.auth, TestCtrl.create);
+
   return router;
 };
