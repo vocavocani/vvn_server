@@ -233,7 +233,7 @@ exports.confirm = (confirm_data) => {
 };
 
 // 팀 메인페이지 조회
-exports.main = (team_idx) => {
+exports.retrieve = (team_idx) => {
   return new Promise((resolve, reject) => {
       const sql =
           "SELECT team_idx, team_name, team_category_idx, team_ranking, team_rule, team_max_cap, team_created_date " +
@@ -248,4 +248,6 @@ exports.main = (team_idx) => {
       })
   })
 };
+
+
 
