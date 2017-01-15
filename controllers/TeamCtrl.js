@@ -104,7 +104,7 @@ exports.retrieve = async(req, res, next) => {
     } else {
      let result = '';
         try{
-          result =  await teamModel.main(req.params.team_idx);
+          result =  await teamModel.retrieve(req.params.team_idx);
         }catch(error) {
           return next(error);
         }

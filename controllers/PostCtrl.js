@@ -5,7 +5,7 @@ const postModel = require('../models/PostModel');
 
 // 담벼락 쓰기
 exports.write = async (req, res, next) => {
-  if (!req.params.team_idx||!req.body.contents){
+  if (!req.body.team_idx||!req.body.contents){
     return next(9401);
   }
   else {
@@ -14,7 +14,7 @@ exports.write = async (req, res, next) => {
     try {
       const post_data = {
         user_idx: req.user_idx,
-        team_idx: req.params.team_idx,
+        team_idx: req.body.team_idx,
         post_contents: req.body.contents
       };
 

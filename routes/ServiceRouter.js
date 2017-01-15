@@ -22,12 +22,11 @@ module.exports = (router) => {
     .put(AuthCtrl.auth, TeamCtrl.confirm);
   router.route('/team/main/:team_idx')
     // .get(AuthCtrl.auth, TeamCtrl.main);
-    .get(TeamCtrl.main); // 팀 메인페이지 조회
+    .get(TeamCtrl.retrieve); // 팀 메인페이지 조회
 
   // POST
-  router.route('/post/:team_idx')
+  router.route('/post')
     .post(AuthCtrl.auth, PostCtrl.write); // 담벼락 쓰기
-
 
   return router;
 };
