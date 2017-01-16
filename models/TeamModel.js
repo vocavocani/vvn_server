@@ -232,10 +232,15 @@ exports.confirm = (confirm_data) => {
   );
 };
 
-// 팀 메인페이지 조회
-exports.main = (team_idx) => {
+
+/**
+ * 팀 메인페이지 조회
+ * @param team_idx
+ */
+exports.retrieve = (team_idx) => {
   return new Promise((resolve, reject) => {
-      const sql =
+    // 조회 값 추가 할것!
+    const sql =
           "SELECT team_idx, team_name, team_category_idx, team_ranking, team_rule, team_max_cap, team_created_date " +
           "FROM team " +
           "WHERE team_idx = ? ";
@@ -248,4 +253,3 @@ exports.main = (team_idx) => {
       })
   })
 };
-

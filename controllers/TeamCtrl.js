@@ -97,14 +97,14 @@ exports.confirm = async (req, res, next) => {
 
 
 // 팀 메인페이지 조회
-exports.main = async(req, res, next) => {
+exports.retrieve = async(req, res, next) => {
     // 파라미터 체크
     if (!req.params.team_idx){
       return next(9401);
     } else {
      let result = '';
         try{
-          result =  await teamModel.main(req.params.team_idx);
+          result =  await teamModel.retrieve(req.params.team_idx);
         }catch(error) {
           return next(error);
         }
