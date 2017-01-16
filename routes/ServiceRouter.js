@@ -5,6 +5,7 @@ const AuthCtrl = controller.AuthCtrl;
 const UserCtrl = controller.UserCtrl;
 const TeamCtrl = controller.TeamCtrl;
 const PostCtrl = controller.PostCtrl;
+const TestCtrl = controller.TestCtrl;
 
 module.exports = (router) => {
   // USER
@@ -31,7 +32,9 @@ module.exports = (router) => {
     .put(AuthCtrl.auth, PostCtrl.edit) //담벼락 수정
     .delete(AuthCtrl.auth, PostCtrl.delete); // 담벼락 삭제
 
-
+  // TEST
+  router.route('/:team_idx/test')
+    .post(AuthCtrl.auth, TestCtrl.create);
 
   return router;
 };
