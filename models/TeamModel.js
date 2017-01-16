@@ -232,9 +232,9 @@ exports.confirm = (confirm_data) => {
   );
 };
 
-// 팀 메인페이지 조회
+
 /**
- *
+ * 팀 메인페이지 조회
  * @param team_idx
  */
 exports.retrieve = (team_idx) => {
@@ -253,6 +253,3 @@ exports.retrieve = (team_idx) => {
       })
   })
 };
-
-
-

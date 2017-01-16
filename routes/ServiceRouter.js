@@ -32,6 +32,10 @@ module.exports = (router) => {
     .put(AuthCtrl.auth, PostCtrl.edit) //담벼락 수정
     .delete(AuthCtrl.auth, PostCtrl.delete); // 담벼락 삭제
 
+  router.route('/team/main/:team_idx')
+    // .get(AuthCtrl.auth, TeamCtrl.main);
+    .get(TeamCtrl.main);
+  
   // TEST
   router.route('/:team_idx/test')
     .post(AuthCtrl.auth, TestCtrl.create);
