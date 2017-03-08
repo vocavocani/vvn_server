@@ -16,7 +16,6 @@ exports.create = async (req, res, next) => {
     return next(9401);
   }
 
-  console.log(req.body.content.length);
   if (req.body.content.length < 4) {  // 문제는 최소 4개 이상
     return next(400);
   }
