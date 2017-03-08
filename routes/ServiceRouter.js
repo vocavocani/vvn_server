@@ -21,7 +21,7 @@ module.exports = (router) => {
   router.route('/team/:team_idx/apply')
     .post(AuthCtrl.auth, TeamCtrl.apply)
     .put(AuthCtrl.auth, TeamCtrl.confirm);
-  router.route('/team/main/:team_idx')
+  router.route('/team/:team_idx')
     .get(TeamCtrl.retrieve); // 팀 메인페이지 조회
 
   // POST
