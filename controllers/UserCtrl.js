@@ -1,7 +1,7 @@
 'use strict';
 
 const userModel = require('../models/userModel');
-const config = require('../config');
+const config = require('../config/config');
 
 /*******************
  *  Register

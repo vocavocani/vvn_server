@@ -1,4 +1,4 @@
-const log = require('./logger');
+const log = require('./config/logger');
 const errors = require('./errors');
 
 module.exports = (app) => {

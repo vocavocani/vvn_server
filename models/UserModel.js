@@ -1,11 +1,11 @@
 'use strict';
 
 const mysql = require('mysql');
-const DBConfig = require('./DBConfig');
+const DBConfig = require('./../config/DBConfig');
 const pool = mysql.createPool(DBConfig);
 
 const jwt = require('jsonwebtoken');
-const config = require('../config');
+const config = require('../config/config');
 
 /*******************
  *  Register
