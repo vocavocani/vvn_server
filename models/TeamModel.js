@@ -1,7 +1,7 @@
 'use strict';
 
 const mysql = require('mysql');
-const DBConfig = require('./DBConfig');
+const DBConfig = require('./../config/DBConfig');
 const pool = mysql.createPool(DBConfig);
 const transactionWrapper = require('./TransactionWrapper');
 
@@ -30,7 +30,7 @@ exports.check = (team_idx) => {
 
 /*******************
  *  Create
- *  @param: team_data = {user_idx, team_name, team_rule, team_category, team_max_cap, team_public}
+ *  @param: team_data = {user_idx, team_name, team_rule, team_category, team_max_cap, team_is_public}
  ********************/
 exports.create = (team_data) => {
   return new Promise((resolve, reject) => {
@@ -181,6 +181,7 @@ exports.alreadyConfirmUserCheck = (...check_data) => {
       if (err) {
         reject(err);
       } else {
+        console.log(rows[0]);
         if (rows[0].team_member_permission == -1) {
           resolve(null);
         } else {

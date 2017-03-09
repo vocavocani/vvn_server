@@ -72,5 +72,11 @@
     "code": 0,
     "message": "비밀번호가 틀렸습니다.",
     "description": "Passwords no not match"
+  },
+  "1204": {
+    "status": 200,
+    "code": 0,
+    "message": "비밀번호가 일치하지 않습니다",
+    "description": "Passwords no not match"
   }
 }

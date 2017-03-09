@@ -1,7 +1,9 @@
 .idea/
 node_modules/
 build/
-models/DBConfig.json
-config.js
 exclude/
 *.swp
+
+# private settings
+DBConfig.json
+config.js
