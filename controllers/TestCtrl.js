@@ -11,11 +11,6 @@ const utils = require('../utils');
  *  @param: content = [{question: '', answer: ''}, ...]
  ********************/
 exports.create = async (req, res, next) => {
-  if (!req.body.content || !req.body.date || !req.body.cutline || !req.body.time_limit ||
-    !req.body.date_limit || !req.params.team_idx || !req.user_idx) {  // parameter check
-    return next(9401);
-  }
-
   if (req.body.content.length < 4) {  // 문제는 최소 4개 이상
     return next(400);
   }
