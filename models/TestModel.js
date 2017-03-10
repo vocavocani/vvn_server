@@ -10,7 +10,7 @@ const transactionWrapper = require('./TransactionWrapper');
 
 /*******************
  *  Create
- *  @param: test_data = {test_content, test_number, test_date, test_cutline, test_time_limit, test_date_limit, user_idx, team_idx}
+ *  @param: test_data = {test_title, test_content, test_number, test_date, test_cutline, test_time_limit, test_date_limit, user_idx, team_idx}
  ********************/
 exports.create = (test_data) => {
   return new Promise((resolve, reject) => {

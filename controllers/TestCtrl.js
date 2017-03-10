@@ -4,6 +4,7 @@
 'use strict';
 
 const testModel = require('../models/TestModel');
+const teamModel = require('../models/TeamModel');
 const utils = require('../utils');
 
 /*******************
@@ -18,9 +19,18 @@ exports.create = async (req, res, next) => {
   let result = '';
 
   try {
-    // TODO - 유저가 팀의 사람인지 판단하는 과정이 필요
+    // Team Member Check
+    switch (await teamModel.getTeamMemberPermission(req.params.team_idx, req.user_idx)){
+      case utils.member_permission.MASTER_MEMBER: break;
+      case utils.member_permission.APPROVED_MEMBER: break;
+      case null:
+        return next(400); break;
+      default:
+        return next(9402);
+    }
 
     const test_data = {
+      test_title: req.body.title,
       test_content: utils.makeTestContent(req.body.content),
       test_number: req.body.content.length,
       test_date: req.body.date,

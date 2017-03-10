@@ -95,6 +95,7 @@ module.exports = {
   // POST - /team/:team_idx/test
   test_create: {
     body: {
+      title: Joi.string().required(),
       contents: Joi.string().required(),
       date: Joi.string().required(),
       cutline: Joi.string().required(),
