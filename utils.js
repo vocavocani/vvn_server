@@ -3,6 +3,17 @@
  */
 
 /*******************
+ * Team Member Permissions
+ ********************/
+exports.member_permission = {
+  REJECTED_MEMBER: -2,
+  APPLY_MEMBER: -1,
+  APPROVED_MEMBER: 0,
+  MASTER_MEMBER: 1
+};
+
+
+/*******************
  *  Make Test Content
  ********************/
 exports.makeTestContent = (test_array) => {

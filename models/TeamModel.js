@@ -5,28 +5,33 @@ const DBConfig = require('./../config/DBConfig');
 const pool = mysql.createPool(DBConfig);
 const transactionWrapper = require('./TransactionWrapper');
 
-/*******************
- *  Check
- *  @param: team_idx
- ********************/
-exports.check = (team_idx) => {
-  return new Promise((resolve, reject) => {
-    const sql = "SELECT team_idx FROM team WHERE team_idx = ?";
 
-    pool.query(sql, team_idx, (err, rows) => {
+/*******************
+ *  Team Member Permission
+ *  @param: team_idx, user_idx
+ ********************/
+exports.getTeamMemberPermission = (team_idx, user_idx) => {
+  return new Promise((resolve, reject) => {
+    const sql =
+      "SELECT team_member_permission " +
+      "FROM team_member " +
+      "WHERE team_idx = ? AND user_idx = ?";
+
+    pool.query(sql, [team_idx, user_idx], (err, rows) => {
       if (err) {
         reject(err);
       } else {
         if (rows.length == 0) {
-          const _err = new Error("Not found this team");
-          reject(_err);
-        } else {
+          // Not Team Member
           resolve(null);
+        } else {
+          resolve(rows[0].team_member_permission);
         }
       }
     });
   });
 };
+
 
 /*******************
  *  Create
@@ -139,57 +144,6 @@ exports.apply = (apply_data) => {
       });
     }
   );
-};
-
-/*******************
- *  Confirm Permission Check
- *  @param: user_idx, team_idx
- ********************/
-exports.confirmPermissionCheck = (...check_data) => {
-  return new Promise((resolve, reject) => {
-    const sql =
-      "SELECT team_member_permission " +
-      "FROM team_member " +
-      "WHERE user_idx = ? AND team_idx = ?";
-
-    pool.query(sql, check_data, (err, rows) => {
-      if (err) {
-        reject(err);
-      } else {
-        if (rows[0].team_member_permission == 1) {
-          resolve(null);
-        } else {
-          reject(9402);
-        }
-      }
-    });
-  });
-};
-
-/*******************
- *  Already Confirm User Check
- *  @param: user_idx, team_idx
- ********************/
-exports.alreadyConfirmUserCheck = (...check_data) => {
-  return new Promise((resolve, reject) => {
-    const sql =
-      "SELECT team_member_permission " +
-      "FROM team_member " +
-      "WHERE user_idx = ? AND team_idx = ?";
-
-    pool.query(sql, check_data, (err, rows) => {
-      if (err) {
-        reject(err);
-      } else {
-        console.log(rows[0]);
-        if (rows[0].team_member_permission == -1) {
-          resolve(null);
-        } else {
-          reject(1401);
-        }
-      }
-    });
-  });
 };
 
 /*******************
