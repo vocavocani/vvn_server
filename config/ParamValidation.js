@@ -92,6 +92,12 @@ module.exports = {
   /*
    TEST Validation
    */
+  // GET - /team/:team_idx/test
+  test_retrieve: {
+    params: {
+      team_idx: Joi.number().required()
+    }
+  },
   // POST - /team/:team_idx/test
   test_create: {
     body: {

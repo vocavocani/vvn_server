@@ -37,6 +37,7 @@ module.exports = (router) => {
   
   // TEST
   router.route('/team/:team_idx/test')
+    .get(AuthCtrl.auth, validate(ParamValidation.test_retrieve), TestCtrl.retrieve)
     .post(AuthCtrl.auth, validate(ParamValidation.test_create), TestCtrl.create);
 
   return router;
