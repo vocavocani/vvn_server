@@ -15,7 +15,7 @@ const transactionWrapper = require('./TransactionWrapper');
 exports.retrieve = (team_idx) => {
   return new Promise((resolve, reject) => {
     const sql =
-      "SELECT p.post_idx, p.user_idx, p.team_idx, p.post_contents, p.post_uploadtime, p.post_updatetime, u.user_nickname " +
+      "SELECT p.post_idx, p.user_idx, p.team_idx, p.post_contents, p.post_create_date, p.post_update_date, u.user_nickname " +
         "FROM post as p " +
         "LEFT JOIN user as u ON p.user_idx = u.user_idx " +
         "WHERE p.team_idx = ?";
@@ -29,35 +29,6 @@ exports.retrieve = (team_idx) => {
     });
   });
 };
-
-// 담벼락 쓰기 권한 체크
-/**
- * team member permission check
- * @param check_data = {user_idx, team_idx}
- */
-exports.teamMemberCheck = (...check_data) => {
-  return new Promise((resolve, reject) => {
-      const sql =
-        "SELECT team_member_permission " +
-        "FROM team_member " +
-        "WHERE user_idx =? AND team_idx =?";
-
-
-      pool.query(sql, check_data, (err, rows) => {
-        if (err){
-          reject(err);
-        } else {
-          if ( rows[0].team_member_permission == 1 || rows[0].team_member_permission == 0) { // 팀장(1) or 팀원(0) 이면 작성가능
-            resolve(null);
-          } else {
-            reject(9402);
-          }
-        }
-      });
-  });
-};
-
-
 
 
 // 담벼락 쓰기
