@@ -1,6 +1,7 @@
 'use strict';
 
 const teamModel = require('../models/TeamModel');
+const member_permission = require('../utils').member_permission;
 
 /*******************
  *  Create
@@ -35,9 +36,6 @@ exports.apply = async(req, res, next) => {
   let result = '';
 
   try {
-    // TEAM Checking
-    await teamModel.check(req.params.team_idx);
-
     // TEAM apply
     const apply_data = {
       team_idx: req.params.team_idx,
@@ -63,13 +61,25 @@ exports.confirm = async(req, res, next) => {
 
   try {
     // Team master permission check
-    await teamModel.confirmPermissionCheck(req.user_idx, req.params.team_idx);
+    switch (await teamModel.getTeamMemberPermission(req.params.team_idx, req.user_idx)) {
+      case member_permission.MASTER_MEMBER: break;
+      case null:
+        return next(400); break;
+      default:
+        return next(9402);
+    }
 
     // Already confirm user check
-    await teamModel.alreadyConfirmUserCheck(req.body.user_idx, req.params.team_idx);
+    switch (await teamModel.getTeamMemberPermission(req.params.team_idx, req.body.user_idx)) {
+      case member_permission.APPLY_MEMBER: break;
+      case null:
+        return next(400); break;
+      default:
+        return next(1401);
+    }
 
     // Confirm Logic
-    const permission = req.body.is_accept ? 0 : -2;  // 0: 정회원, -2: 거절된 회원
+    const permission = req.body.is_accept ? member_permission.APPROVED_MEMBER : member_permission.REJECTED_MEMBER;
     const confirm_data = [permission, req.body.user_idx, req.params.team_idx];
 
     result = await teamModel.confirm(confirm_data);
