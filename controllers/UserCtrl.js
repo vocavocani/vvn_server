@@ -47,5 +47,5 @@ exports.login = async(req, res, next) => {
   }
 
   // success
-  return res.header('token', result.token).json(result.profile);
+  return res.json(result);
 };
