@@ -6,6 +6,7 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const log = require('./config/logger');
+const cors = require('cors');
 
 const app = express();
 
@@ -20,13 +21,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-// CORS Settings
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS");
-  res.header("Access-Control-Allow-Headers", "token, Content-Type");
-  next();
-});
+// CORS ALL ACCESS Settings
+app.use(cors());
 
 // initialize routes
 require('./routes')(app);
