@@ -21,9 +21,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 // CORS Settings
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE");
+  res.header("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS");
+  res.header("Access-Control-Allow-Headers", "token, Content-Type");
   next();
 });
 
