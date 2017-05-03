@@ -6,7 +6,6 @@ const pool = mysql.createPool(DBConfig);
 const transactionWrapper = require('./TransactionWrapper');
 
 
-//담벼락 조회
 /**
  * TODO 조회값 추가
  * Post retrieve
@@ -31,7 +30,6 @@ exports.retrieve = (team_idx) => {
 };
 
 
-// 담벼락 쓰기
 /**
  * Post write
  * @param post_data = {user_idx, team_idx, post_contents}
