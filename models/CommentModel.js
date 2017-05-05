@@ -29,3 +29,24 @@ exports.retrieve = (post_idx) => {
   });
 };
 
+exports.write = (comment_data) => {
+  return new Promise((resolve, reject) => {
+    console.log(comment_data);
+
+    const sql = "INSERT INTO comment SET ?";
+
+    pool.query(sql, comment_data, (err, rows)=> {
+      if (err){
+        reject(err);
+      } else {
+        // resolve(rows);
+        if (rows.affectedRows == 1){ // 담벼락 쓰기 시도
+          resolve(rows);
+        } else {
+          const _err = new Error("Comment Write Error");
+          reject(_err);
+        }
+      }
+    })
+  })
+};

@@ -40,6 +40,7 @@ module.exports = (router) => {
   // COMMENT
   router.route('/post/:post_idx/comment')
     .get(AuthCtrl.auth, CommentCtrl.retrieve) // 댓글 조회
+    .post(AuthCtrl.auth, CommentCtrl.write); // 댓글 쓰기
 
 
 
