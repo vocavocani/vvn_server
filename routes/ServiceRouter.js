@@ -9,6 +9,8 @@ const UserCtrl = controller.UserCtrl;
 const TeamCtrl = controller.TeamCtrl;
 const PostCtrl = controller.PostCtrl;
 const TestCtrl = controller.TestCtrl;
+const CommentCtrl = controller.CommentCtrl;
+
 
 module.exports = (router) => {
   // USER
@@ -34,7 +36,14 @@ module.exports = (router) => {
   router.route('/team/:team_idx/post/:post_idx')
     .put(AuthCtrl.auth, validate(ParamValidation.post_edit), PostCtrl.edit) //담벼락 수정
     .delete(AuthCtrl.auth, PostCtrl.delete); // 담벼락 삭제
-  
+
+  // COMMENT
+  router.route('/post/:post_idx/comment')
+    .get(AuthCtrl.auth, CommentCtrl.retrieve) // 댓글 조회
+    .post(AuthCtrl.auth, CommentCtrl.write); // 댓글 쓰기
+
+
+
   // TEST
   router.route('/team/:team_idx/test')
     .get(AuthCtrl.auth, validate(ParamValidation.test_retrieve), TestCtrl.retrieve)

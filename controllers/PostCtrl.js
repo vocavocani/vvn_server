@@ -18,6 +18,7 @@ exports.retrieve = async(req, res, next) => {
   return res.json(result);
 };
 
+
 // 담벼락 쓰기
 exports.write = async(req, res, next) => {
   let result = '';
