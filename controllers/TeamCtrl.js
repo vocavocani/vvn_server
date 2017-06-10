@@ -4,6 +4,32 @@ const teamModel = require('../models/TeamModel');
 const member_permission = require('../utils').member_permission;
 
 /*******************
+ *  My Team List
+ ********************/
+exports.list = async(req, res, next) => {
+  let result = '';
+
+  try {
+    const team_data = {
+      user_idx: req.user_idx,
+      team_name: req.body.name,
+      team_rule: req.body.rule,
+      team_category_idx: req.body.category,
+      team_max_cap: req.body.max_cap,
+      team_is_public: req.body.is_public
+    };
+
+    result = await teamModel.list(req.user_idx);
+
+  } catch (error) {
+    return next(error);
+  }
+
+  // success
+  return res.json(result);
+};
+
+/*******************
  *  Create
  ********************/
 exports.create = async(req, res, next) => {
@@ -93,7 +119,9 @@ exports.confirm = async(req, res, next) => {
 };
 
 
-// 팀 메인페이지 조회
+/*******************
+ *  Detail retrieve
+ ********************/
 exports.retrieve = async(req, res, next) => {
   let result = '';
   try {

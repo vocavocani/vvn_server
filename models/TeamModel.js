@@ -32,6 +32,27 @@ exports.getTeamMemberPermission = (team_idx, user_idx) => {
   });
 };
 
+/**
+ * My Team List
+ * @param user_idx
+ */
+exports.list = (user_idx) => {
+  return new Promise((resolve, reject) => {
+    const sql =
+      "SELECT t.team_idx team_idx, t.team_name team_name, tc.team_category_title team_category_title, " +
+      "t.team_ranking team_ranking, t.team_current_cap team_current_cap, t.team_max_cap team_max_cap " +
+      "FROM team t, team_category tc, team_member tm " +
+      "WHERE t.team_category_idx = tc.team_category_idx and t.team_idx = tm.team_idx and tm.user_idx = ? ";
+
+    pool.query(sql, user_idx, (err, rows) => {
+      if (err){
+        reject(err);
+      } else{
+        resolve(rows);
+      }
+    })
+  })
+};
 
 /*******************
  *  Create

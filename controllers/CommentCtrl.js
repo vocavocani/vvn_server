@@ -2,7 +2,7 @@
 
 const commentModel = require('../models/CommentModel');
 const teamModel = require('../models/TeamModel');
-
+const member_permission = require('../utils').member_permission;
 
 
 // 담벼락 조회
