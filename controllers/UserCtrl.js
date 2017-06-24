@@ -15,7 +15,7 @@ exports.register = async(req, res, next) => {
   try {
     const user_data = {
       user_id: req.body.id,
-      user_password: config.do_ciper(req.body.pw_2),
+      user_password: config.do_cipher(req.body.pw_2),
       user_nickname: req.body.nickname
     };
 
@@ -38,7 +38,7 @@ exports.login = async(req, res, next) => {
   try {
     const user_data = {
       user_id: req.body.id,
-      user_password: config.do_ciper(req.body.pw)
+      user_password: config.do_cipher(req.body.pw)
     };
 
     result = await userModel.login(user_data);
