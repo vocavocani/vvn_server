@@ -8,7 +8,7 @@ const config = require('../config/config');
  ********************/
 exports.register = async(req, res, next) => {
   if (req.body.pw_1 != req.body.pw_2) {
-    return next(1204);
+    return next(1404);
   }
 
   let result = '';

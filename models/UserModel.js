@@ -20,7 +20,7 @@ exports.register = (user_data) => {
           reject(err);
         } else {
           if (rows.length != 0) {  // 이미 아이디 존재
-            reject(1201);
+            reject(1401);
           }else{
             resolve(null);
           }
@@ -76,7 +76,7 @@ exports.login = (user_data) => {
           reject(err);
         } else {
           if (rows.length == 0) {  // 아이디 없음
-            reject(1202);
+            reject(1402);
           } else {
             resolve(null);
           }
@@ -95,7 +95,7 @@ exports.login = (user_data) => {
           reject(err);
         } else {
           if (rows.length == 0) {  // 비밀번호 틀림
-            reject(1203);
+            reject(1403);
           } else {
             const profile = {
               id: rows[0].user_id,
